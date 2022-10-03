@@ -9,11 +9,28 @@ public class PlayerManager : CharacterManager
     PlayerLocomotion playerLocomotion;
     CameraManager cameraManager;
 
+    [Header("Spells")]
+    public Spell activeSpell;
+    public Spell[] spells;
+    public GameObject spellOriginOffset;
+    public Vector2 aimDirection;
+
     void Start()
     {
         inputManager = GetComponent<InputManager>();
         playerLocomotion = GetComponent<PlayerLocomotion>();
         cameraManager = FindObjectOfType<CameraManager>();
+        spellOriginOffset = this.gameObject.transform.GetChild(1).gameObject;
+    }
+
+    new public void HandleAttack()
+    {
+        animationManager.HandleAttackAnimations();
+    }
+
+    public void Cast()
+    {
+        activeSpell.Create(this.transform.position + spellOriginOffset.transform.position);
     }
 
     void Update()

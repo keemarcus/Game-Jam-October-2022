@@ -6,7 +6,7 @@ public class AnimationManager : MonoBehaviour
 {
     public Animator animator;
     WeaponManager weaponManager;
-    CharacterManager characterManager;
+    public CharacterManager characterManager;
 
     private void Awake()
     {
