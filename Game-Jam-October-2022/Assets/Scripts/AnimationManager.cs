@@ -10,7 +10,7 @@ public class AnimationManager : MonoBehaviour
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
+        animator = this.gameObject.GetComponent<Animator>();
         characterManager = GetComponentInParent<CharacterManager>();
         weaponManager = transform.GetChild(0).GetComponentInChildren<WeaponManager>();
     }
@@ -33,6 +33,25 @@ public class AnimationManager : MonoBehaviour
         else if (Mathf.Abs(animator.GetFloat("X")) > Mathf.Abs(animator.GetFloat("Y"))) { animator.SetFloat("Y", 0); }
         animator.SetTrigger("Attack");
         animator.SetBool("Combo", characterManager.comboFlag);
+    }
+    public void HandleCastAnimations(string spellType)
+    {
+        if (Mathf.Abs(animator.GetFloat("Y")) > Mathf.Abs(animator.GetFloat("X"))) { animator.SetFloat("X", 0); }
+        else if (Mathf.Abs(animator.GetFloat("X")) > Mathf.Abs(animator.GetFloat("Y"))) { animator.SetFloat("Y", 0); }
+
+        switch (spellType)
+        {
+            case "Attack":
+                animator.SetTrigger("Attack");
+                break;
+            case "Summon":
+                animator.SetTrigger("Summon");
+                break;
+            default:
+                animator.SetTrigger("Attack");
+                break;
+        }
+        
     }
 
     public void SetWeaponSprite(int index)

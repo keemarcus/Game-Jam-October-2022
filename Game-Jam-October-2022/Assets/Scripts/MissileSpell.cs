@@ -13,10 +13,11 @@ public class MissileSpell : Spell
     public override void Create(Vector2 origin)
     {
         var spellAngle = Mathf.Atan2(this.gameObject.GetComponent<PlayerManager>().aimDirection.x * -1, this.gameObject.GetComponent<PlayerManager>().aimDirection.y) * Mathf.Rad2Deg;
-        GameObject newSpell = Instantiate(spellPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.AngleAxis(spellAngle, Vector3.forward));
+        GameObject newSpell = Instantiate(spellPrefab, origin, Quaternion.AngleAxis(spellAngle, Vector3.forward));
         newSpell.GetComponent<Rigidbody2D>().freezeRotation = true;
         newSpell.GetComponent<Rigidbody2D>().velocity = this.gameObject.GetComponent<PlayerManager>().aimDirection * missileSpeed;
         Physics2D.IgnoreCollision(newSpell.GetComponent<Collider2D>(), this.gameObject.GetComponent<Collider2D>());
+        //newSpell.GetComponent<ParticleSystem>().Play();
         MissileSpell spellScript = newSpell.AddComponent<MissileSpell>();
         //spellScript.missileSpeed = this.missileSpeed;
         spellScript.spellType = this.spellType;

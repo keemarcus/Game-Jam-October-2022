@@ -11,7 +11,8 @@
                     "id": "e6ec79cb-459c-4d75-9912-a5f72ad30fc3",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -93,7 +94,8 @@
                     "id": "269863fa-5cdf-4233-bf7e-e49291787979",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Interact",
@@ -101,7 +103,8 @@
                     "id": "3eafd242-ba15-4ea4-a87e-227b6df7c171",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -146,6 +149,34 @@
                     "processors": "",
                     "groups": "",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Spell Casting",
+            "id": "878452ee-053c-47f0-b956-19ac62ef6329",
+            "actions": [
+                {
+                    "name": "Change Spell",
+                    "type": "PassThrough",
+                    "id": "90125347-b24a-4a1f-afc4-96d5e07e3d9c",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "f15c6aeb-3d95-490a-a3b5-a7a1b922a926",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Change Spell",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

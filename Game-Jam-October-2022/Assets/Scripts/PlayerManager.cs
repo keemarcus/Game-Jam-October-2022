@@ -11,6 +11,7 @@ public class PlayerManager : CharacterManager
 
     [Header("Spells")]
     public Spell activeSpell;
+    public int activeSpellIndex;
     public Spell[] spells;
     public GameObject spellOriginOffset;
     public Vector2 aimDirection;
@@ -21,16 +22,38 @@ public class PlayerManager : CharacterManager
         playerLocomotion = GetComponent<PlayerLocomotion>();
         cameraManager = FindObjectOfType<CameraManager>();
         spellOriginOffset = this.gameObject.transform.GetChild(1).gameObject;
+        activeSpellIndex = 0;
+        ChangeActiveSpell(0);
     }
 
     new public void HandleAttack()
     {
-        animationManager.HandleAttackAnimations();
+        animationManager.HandleCastAnimations(activeSpell.spellAnimation);
     }
 
     public void Cast()
     {
-        activeSpell.Create(this.transform.position + spellOriginOffset.transform.position);
+        //Debug.Log(spellOriginOffset.transform.localPosition);
+        activeSpell.Create(spellOriginOffset.transform.position);
+    }
+
+    public void ChangeActiveSpell(float direction)
+    {
+        if(direction > 0)
+        {
+            activeSpellIndex++;
+            if(activeSpellIndex >= spells.Length) { activeSpellIndex = 0; }
+        }else if(direction < 0)
+        {
+            activeSpellIndex--;
+            if (activeSpellIndex < 0) { activeSpellIndex = spells.Length - 1; }
+        }
+        else
+        {
+            activeSpellIndex = 0;
+        }
+
+        activeSpell = spells[activeSpellIndex];
     }
 
     void Update()

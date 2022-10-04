@@ -175,6 +175,34 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Spell Casting"",
+            ""id"": ""878452ee-053c-47f0-b956-19ac62ef6329"",
+            ""actions"": [
+                {
+                    ""name"": ""Change Spell"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""90125347-b24a-4a1f-afc4-96d5e07e3d9c"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""f15c6aeb-3d95-490a-a3b5-a7a1b922a926"",
+                    ""path"": ""<Mouse>/scroll"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Change Spell"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -186,6 +214,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_PlayerActions = asset.FindActionMap("Player Actions", throwIfNotFound: true);
         m_PlayerActions_Attack = m_PlayerActions.FindAction("Attack", throwIfNotFound: true);
         m_PlayerActions_Interact = m_PlayerActions.FindAction("Interact", throwIfNotFound: true);
+        // Spell Casting
+        m_SpellCasting = asset.FindActionMap("Spell Casting", throwIfNotFound: true);
+        m_SpellCasting_ChangeSpell = m_SpellCasting.FindAction("Change Spell", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -315,6 +346,39 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         }
     }
     public PlayerActionsActions @PlayerActions => new PlayerActionsActions(this);
+
+    // Spell Casting
+    private readonly InputActionMap m_SpellCasting;
+    private ISpellCastingActions m_SpellCastingActionsCallbackInterface;
+    private readonly InputAction m_SpellCasting_ChangeSpell;
+    public struct SpellCastingActions
+    {
+        private @PlayerControls m_Wrapper;
+        public SpellCastingActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ChangeSpell => m_Wrapper.m_SpellCasting_ChangeSpell;
+        public InputActionMap Get() { return m_Wrapper.m_SpellCasting; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(SpellCastingActions set) { return set.Get(); }
+        public void SetCallbacks(ISpellCastingActions instance)
+        {
+            if (m_Wrapper.m_SpellCastingActionsCallbackInterface != null)
+            {
+                @ChangeSpell.started -= m_Wrapper.m_SpellCastingActionsCallbackInterface.OnChangeSpell;
+                @ChangeSpell.performed -= m_Wrapper.m_SpellCastingActionsCallbackInterface.OnChangeSpell;
+                @ChangeSpell.canceled -= m_Wrapper.m_SpellCastingActionsCallbackInterface.OnChangeSpell;
+            }
+            m_Wrapper.m_SpellCastingActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @ChangeSpell.started += instance.OnChangeSpell;
+                @ChangeSpell.performed += instance.OnChangeSpell;
+                @ChangeSpell.canceled += instance.OnChangeSpell;
+            }
+        }
+    }
+    public SpellCastingActions @SpellCasting => new SpellCastingActions(this);
     public interface IPlayerMovementActions
     {
         void OnMovement(InputAction.CallbackContext context);
@@ -323,5 +387,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     {
         void OnAttack(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+    }
+    public interface ISpellCastingActions
+    {
+        void OnChangeSpell(InputAction.CallbackContext context);
     }
 }

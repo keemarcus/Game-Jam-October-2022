@@ -54,7 +54,11 @@ public abstract class CharacterManager : MonoBehaviour
 
     void Awake()
     {
-        animationManager = GetComponentInChildren<AnimationManager>();
+        animationManager = GetComponent<AnimationManager>();
+        if(animationManager == null)
+        {
+            animationManager = GetComponentInChildren<AnimationManager>();
+        }
         //fileManager = GetComponent<CharacterStats>();
         //CharacterStats.currentHP = maxHP;
         isDead = false;
@@ -72,7 +76,7 @@ public abstract class CharacterManager : MonoBehaviour
         }
 
         // set the character position in game
-        if(characterStats.CharacterScene == SceneManager.GetActiveScene().name)
+        if(characterStats.CharacterScene == SceneManager.GetActiveScene().name && characterStats.CharacterPosition != Vector2.zero)
         {
             this.gameObject.transform.position = characterStats.CharacterPosition;
 
