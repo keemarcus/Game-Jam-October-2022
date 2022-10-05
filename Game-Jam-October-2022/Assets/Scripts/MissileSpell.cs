@@ -28,7 +28,7 @@ public class MissileSpell : Spell
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // look for charcters that we hit
-        Debug.Log(collision.gameObject.name);
+        //Debug.Log(collision.gameObject.name);
         CharacterManager hitCharacterManager = collision.gameObject.GetComponent<CharacterManager>();
         if (hitCharacterManager != null)
         {
@@ -57,5 +57,10 @@ public class MissileSpell : Spell
             default:
                 return "No Valid Spell Type Found";
         }
+    }
+
+    public override EnemyManager CheckForTarget(Vector2 origin)
+    {
+        return null;
     }
 }

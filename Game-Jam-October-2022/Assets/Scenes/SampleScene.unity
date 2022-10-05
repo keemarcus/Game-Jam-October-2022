@@ -154,6 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pursueTargetState: {fileID: 69436606}
+  deadState: {fileID: 0}
 --- !u!114 &69436606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,6 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   idleState: {fileID: 69436605}
+  deadState: {fileID: 0}
 --- !u!4 &69436607
 Transform:
   m_ObjectHideFlags: 0
@@ -11672,6 +11674,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pursueTargetState: {fileID: 790298042}
+  deadState: {fileID: 0}
 --- !u!114 &790298042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11685,6 +11688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   idleState: {fileID: 790298041}
+  deadState: {fileID: 0}
 --- !u!4 &790298043
 Transform:
   m_ObjectHideFlags: 0
@@ -11885,6 +11889,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   idleWanderTimer: 0
+  selectedForRevive: 0
 --- !u!61 &846058710
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13367,6 +13372,7 @@ GameObject:
   - component: {fileID: 1019577664}
   - component: {fileID: 1019577662}
   - component: {fileID: 1019577663}
+  - component: {fileID: 1019577665}
   m_Layer: 0
   m_Name: State Machine
   m_TagString: Untagged
@@ -13387,6 +13393,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pursueTargetState: {fileID: 1019577663}
+  deadState: {fileID: 1019577665}
 --- !u!114 &1019577663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13400,6 +13407,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   idleState: {fileID: 1019577662}
+  deadState: {fileID: 1019577665}
 --- !u!4 &1019577664
 Transform:
   m_ObjectHideFlags: 0
@@ -13415,6 +13423,19 @@ Transform:
   m_Father: {fileID: 2031124601}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1019577665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1019577661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2565a398bd66b7d4193be32d8d65e092, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idleState: {fileID: 1019577662}
 --- !u!1 &1026109995
 GameObject:
   m_ObjectHideFlags: 0
@@ -13923,8 +13944,8 @@ GameObject:
   - component: {fileID: 1395556977}
   - component: {fileID: 1395556976}
   - component: {fileID: 1395556979}
-  - component: {fileID: 1395556980}
   - component: {fileID: 1395556981}
+  - component: {fileID: 1395556982}
   m_Layer: 11
   m_Name: New Player
   m_TagString: Untagged
@@ -14011,6 +14032,7 @@ MonoBehaviour:
   mouseY: 0
   attackInput: 0
   interactInput: 0
+  changeSpell: 0
 --- !u!114 &1395556974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14042,10 +14064,11 @@ MonoBehaviour:
   activeSpellIndex: 0
   spells:
   - {fileID: 1395556979}
-  - {fileID: 1395556980}
+  - {fileID: 1395556982}
   - {fileID: 1395556981}
   spellOriginOffset: {fileID: 0}
   aimDirection: {x: 0, y: 0}
+  alreadyCast: 0
 --- !u!4 &1395556975
 Transform:
   m_ObjectHideFlags: 0
@@ -14168,25 +14191,6 @@ MonoBehaviour:
   spellType: Attack
   spellEffectAmount: 10
   spellEffectType: Fire
---- !u!114 &1395556980
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1395556969}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e101d89e33d57454097788f7686611ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  range: 10
-  spellPrefab: {fileID: 1625270631863425254, guid: f4a775ece878eac478a8e4ef418538ff, type: 3}
-  spellAnimation: Attack
-  missileSpeed: 5
-  spellType: Attack
-  spellEffectAmount: 5
-  spellEffectType: Ice
 --- !u!114 &1395556981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14201,6 +14205,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   range: 2
   spellPrefab: {fileID: 2031124596}
+  spellAnimation: Summon
+--- !u!114 &1395556982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1395556969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 746727d67384da24aba540113cb06111, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  range: 10
+  spellPrefab: {fileID: 0}
   spellAnimation: Summon
 --- !u!1 &1412242918
 GameObject:
@@ -14465,6 +14484,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   idleWanderTimer: 0
+  selectedForRevive: 0
 --- !u!195 &1593552976
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -14640,6 +14660,90 @@ MonoBehaviour:
   spriteSheet: {fileID: 2800000, guid: a2e40a47fc7efc14a951e9dcfe8db39c, type: 3}
   damageType: Piercing
   baseDamage: 10
+--- !u!1 &1664390950
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1664390951}
+  - component: {fileID: 1664390952}
+  m_Layer: 11
+  m_Name: Revivable Indicator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1664390951
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1664390950}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2031124601}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &1664390952
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1664390950}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 37158899
+  m_SortingLayer: 2
+  m_SortingOrder: 9999
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Color: {r: 0, g: 1, b: 0.036538124, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &1688602081
 GameObject:
   m_ObjectHideFlags: 0
@@ -15047,6 +15151,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   idleWanderTimer: 0
+  selectedForRevive: 0
 --- !u!61 &1891896296
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -15266,6 +15371,7 @@ MonoBehaviour:
   mouseY: 0
   attackInput: 0
   interactInput: 0
+  changeSpell: 0
 --- !u!114 &1963571974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15298,6 +15404,7 @@ MonoBehaviour:
   spells: []
   spellOriginOffset: {fileID: 0}
   aimDirection: {x: 0, y: 0}
+  alreadyCast: 0
 --- !u!50 &1963571975
 Rigidbody2D:
   serializedVersion: 4
@@ -29973,6 +30080,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   idleWanderTimer: 0
+  selectedForRevive: 0
 --- !u!4 &2031124601
 Transform:
   m_ObjectHideFlags: 0
@@ -29988,6 +30096,7 @@ Transform:
   - {fileID: 413996149}
   - {fileID: 2035028086}
   - {fileID: 1019577664}
+  - {fileID: 1664390951}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -121,13 +121,14 @@ public abstract class CharacterManager : MonoBehaviour
 
     public void TakeDamage(int damageAmount, string damageType)
     {
-        //Debug.Log(this.gameObject.name + " took " + damageAmount + " " + damageType +" damage.");
+        Debug.Log(this.gameObject.name + " took " + damageAmount + " " + damageType +" damage.");
         characterStats.CurrentHP -= damageAmount;
         if(characterStats.CurrentHP <= 0)
         {
-            //Debug.Log(this.gameObject.name + " died.");
+            characterStats.CurrentHP = 0;
+            Debug.Log(this.gameObject.name + " died.");
             this.isDead = true;
-            this.gameObject.SetActive(false);
+            //this.gameObject.SetActive(false);
         }
     }
 

@@ -9,4 +9,6 @@ public abstract class Spell : MonoBehaviour
     public string spellAnimation;
 
     abstract public void Create(Vector2 origin);
+
+    abstract public EnemyManager CheckForTarget(Vector2 origin);
 }

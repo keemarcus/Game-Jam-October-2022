@@ -5,8 +5,14 @@ using UnityEngine;
 public class GoblinPursueTargetState : AIState
 {
     public GoblinIdleState idleState;
+    public GoblinDeadState deadState;
     public override AIState Tick(EnemyManager enemyManager, AnimationManager enemyAnimationManager)
     {
+        if (enemyManager.characterStats.CurrentHP == 0)
+        {
+            return deadState;
+        }
+
         // look for a potential target
         #region Target Detection
         enemyManager.LookForEnemy();

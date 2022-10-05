@@ -15,6 +15,7 @@ public class PlayerManager : CharacterManager
     public Spell[] spells;
     public GameObject spellOriginOffset;
     public Vector2 aimDirection;
+    public bool alreadyCast;
 
     void Start()
     {
@@ -24,6 +25,7 @@ public class PlayerManager : CharacterManager
         spellOriginOffset = this.gameObject.transform.GetChild(1).gameObject;
         activeSpellIndex = 0;
         ChangeActiveSpell(0);
+        alreadyCast = false;
     }
 
     new public void HandleAttack()
@@ -33,8 +35,12 @@ public class PlayerManager : CharacterManager
 
     public void Cast()
     {
+        if (alreadyCast) { return; }
         //Debug.Log(spellOriginOffset.transform.localPosition);
+        aimDirection.Normalize();
+        //Debug.Log(activeSpell.spellPrefab.name);
         activeSpell.Create(spellOriginOffset.transform.position);
+        alreadyCast = true;
     }
 
     public void ChangeActiveSpell(float direction)
@@ -63,6 +69,8 @@ public class PlayerManager : CharacterManager
 
         // take player inputs
         inputManager.TickInput(delta);
+
+        activeSpell.CheckForTarget(spellOriginOffset.transform.position);
     }
 
     private void FixedUpdate()
@@ -88,6 +96,7 @@ public class PlayerManager : CharacterManager
         // reset all our input variables at the end of the frame so they can only be triggered once per press
         inputManager.attackInput = false;
         inputManager.interactInput = false;
+        inputManager.changeSpell = false;
     }
 
     public void HandleInteract()

@@ -14,6 +14,7 @@ public class EnemyManager : CharacterManager
     public AIState currentState;
     public LayerMask detectionLayerMask;
     public float idleWanderTimer;
+    public bool selectedForRevive;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,7 @@ public class EnemyManager : CharacterManager
         agent.updateUpAxis = false;
 
         idleWanderTimer = 0f;
+        selectedForRevive = false;
     }
 
     private void HandleStateMachine()
@@ -88,6 +90,14 @@ public class EnemyManager : CharacterManager
                 }
             }
         }
+    }
+
+    public void RaiseFromDead(string newTeamTag)
+    {
+        this.isDead = false;
+        this.characterStats.CurrentHP = this.characterStats.MaxHP;
+        this.teamTag = newTeamTag;
+        this.selectedForRevive = false;
     }
 
     public Vector3 RandomNavmeshLocation(float radius)

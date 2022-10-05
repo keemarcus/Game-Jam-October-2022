@@ -11,6 +11,12 @@ public class AttackStateManager : StateMachineBehaviour
         animator.GetComponent<AnimationManager>().ResetComboFlag();
         animator.GetComponent<AnimationManager>().SetCanDoCombo(0);
         animator.GetComponent<AnimationManager>().SetIsInteracting(1);
+        PlayerManager playerManager = animator.GetComponent<PlayerManager>();
+        if(playerManager != null)
+        {
+            //Debug.Log("Reset Spell Cast");
+            playerManager.alreadyCast = false;
+        }
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

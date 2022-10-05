@@ -12,6 +12,7 @@ public class InputManager : MonoBehaviour
 
     public bool attackInput;
     public bool interactInput;
+    public bool changeSpell;
 
     PlayerControls inputActions;
     PlayerManager playerManager;
@@ -33,7 +34,8 @@ public class InputManager : MonoBehaviour
             inputActions.PlayerMovement.Movement.performed += inputActions => movementInput = inputActions.ReadValue<Vector2>();
             inputActions.PlayerActions.Attack.performed += i => attackInput = true;
             inputActions.PlayerActions.Interact.performed += i => interactInput = true;
-            inputActions.SpellCasting.ChangeSpell.performed += inputActions => scrollWheel = inputActions.ReadValue<Vector2>().normalized;
+            inputActions.SpellCasting.ChangeSpell.performed += i => changeSpell = true;
+            inputActions.SpellCasting.CycleSpell.performed += inputActions => scrollWheel = inputActions.ReadValue<Vector2>().normalized;
         }
 
         inputActions.Enable();
@@ -49,7 +51,7 @@ public class InputManager : MonoBehaviour
         HanldeMoveInput(delta);
         HandleAttackInput(delta);
         HandleInteractInput(delta);
-        HandleScrollInput(delta);
+        HandleChangeSpellInput(delta);
     }
 
     private void HanldeMoveInput(float delta)
@@ -76,9 +78,13 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    private void HandleScrollInput(float delta)
+    private void HandleChangeSpellInput(float delta)
     {
-        if(scrollWheel.y != 0f)
+        if (changeSpell)
+        {
+            playerManager.ChangeActiveSpell(1f);
+        }
+        else if(scrollWheel.y != 0f)
         {
             playerManager.ChangeActiveSpell(scrollWheel.y);
         }
