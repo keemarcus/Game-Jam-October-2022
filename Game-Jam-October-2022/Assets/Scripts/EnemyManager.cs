@@ -53,6 +53,15 @@ public class EnemyManager : CharacterManager
     // Update is called once per frame
     void Update()
     {
+        if (selectedForRevive)
+        {
+            this.gameObject.transform.GetChild(3).gameObject.SetActive(true);
+        }
+        else
+        {
+            this.gameObject.transform.GetChild(3).gameObject.SetActive(false);
+        }
+
         if (isDead) { agent.enabled = false; return; }
         if (isInteracting) { agent.enabled = false; }
         float delta = Time.fixedDeltaTime;
@@ -94,6 +103,7 @@ public class EnemyManager : CharacterManager
 
     public void RaiseFromDead(string newTeamTag)
     {
+        this.agent.enabled = true;
         this.isDead = false;
         this.characterStats.CurrentHP = this.characterStats.MaxHP;
         this.teamTag = newTeamTag;

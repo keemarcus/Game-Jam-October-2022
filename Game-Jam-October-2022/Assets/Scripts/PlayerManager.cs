@@ -10,9 +10,9 @@ public class PlayerManager : CharacterManager
     CameraManager cameraManager;
 
     [Header("Spells")]
-    public Spell activeSpell;
+    public SpellSlot activeSpell;
     public int activeSpellIndex;
-    public Spell[] spells;
+    public SpellSlot[] spells;
     public GameObject spellOriginOffset;
     public Vector2 aimDirection;
     public bool alreadyCast;
@@ -35,11 +35,11 @@ public class PlayerManager : CharacterManager
 
     public void Cast()
     {
-        if (alreadyCast) { return; }
+        if (alreadyCast || this.aimDirection == Vector2.zero) { return; }
         //Debug.Log(spellOriginOffset.transform.localPosition);
         aimDirection.Normalize();
         //Debug.Log(activeSpell.spellPrefab.name);
-        activeSpell.Create(spellOriginOffset.transform.position);
+        activeSpell.Cast(spellOriginOffset.transform.position, this.gameObject);
         alreadyCast = true;
     }
 
@@ -48,11 +48,20 @@ public class PlayerManager : CharacterManager
         if(direction > 0)
         {
             activeSpellIndex++;
-            if(activeSpellIndex >= spells.Length) { activeSpellIndex = 0; }
+            if(activeSpellIndex >= spells.Length || spells[activeSpellIndex] == null) { activeSpellIndex = 0; }
         }else if(direction < 0)
         {
             activeSpellIndex--;
-            if (activeSpellIndex < 0) { activeSpellIndex = spells.Length - 1; }
+            if (activeSpellIndex < 0) 
+            {
+                int i = 1;
+                do
+                {
+                    activeSpellIndex = spells.Length - i;
+                    i++;
+                } while (spells[activeSpellIndex] == null);
+                 
+            }
         }
         else
         {
@@ -70,7 +79,7 @@ public class PlayerManager : CharacterManager
         // take player inputs
         inputManager.TickInput(delta);
 
-        activeSpell.CheckForTarget(spellOriginOffset.transform.position);
+        activeSpell.spellScript.CheckForTarget(spellOriginOffset.transform.position);
     }
 
     private void FixedUpdate()

@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class SummonSpell : Spell
 {
-    public override void Create(Vector2 origin)
+    public GameObject creaturePrefab;
+    public override void Create(Vector2 origin, GameObject caster)
     {
-        var spellAngle = Mathf.Atan2(this.gameObject.GetComponent<PlayerManager>().aimDirection.x * -1, this.gameObject.GetComponent<PlayerManager>().aimDirection.y) * Mathf.Rad2Deg;
-        GameObject newCreature = Instantiate(spellPrefab, origin + (this.gameObject.GetComponent<PlayerManager>().aimDirection * range), Quaternion.identity);
+        var spellAngle = Mathf.Atan2(caster.GetComponent<PlayerManager>().aimDirection.x * -1, caster.GetComponent<PlayerManager>().aimDirection.y) * Mathf.Rad2Deg;
+        GameObject newCreature = Instantiate(creaturePrefab, origin + (caster.GetComponent<PlayerManager>().aimDirection * range), Quaternion.identity);
+        newCreature.GetComponent<CharacterManager>().teamTag = caster.GetComponent<CharacterManager>().teamTag;
     }
 
     public override EnemyManager CheckForTarget(Vector2 origin)

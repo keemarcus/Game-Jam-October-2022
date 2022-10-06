@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 4497499700602585147}
   - component: {fileID: 4497499700602585146}
   - component: {fileID: 2362904765769899515}
+  - component: {fileID: -5594750628199394510}
   m_Layer: 0
-  m_Name: Attack Spell Prefab
+  m_Name: Fireball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -226,3 +227,20 @@ TrailRenderer:
   m_Autodestruct: 1
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
+--- !u!114 &-5594750628199394510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4497499700602585143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e101d89e33d57454097788f7686611ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  range: 10
+  missileSpeed: 10
+  spellType: Attack
+  spellEffectAmount: 10
+  spellEffectType: Fire

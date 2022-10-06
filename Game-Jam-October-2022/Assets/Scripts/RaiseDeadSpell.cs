@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RaiseDeadSpell : Spell
 {
-    public override void Create(Vector2 origin)
+    public override void Create(Vector2 origin, GameObject caster)
     {
         EnemyManager nearestTarget = CheckForTarget(origin);
         if(nearestTarget != null)
@@ -19,7 +19,10 @@ public class RaiseDeadSpell : Spell
 
         foreach(EnemyManager enemyManager in FindObjectsOfType<EnemyManager>())
         {
-            
+            if(enemyManager.characterStats.CurrentHP > 0)
+            {
+                continue;
+            }
 
             if(Vector2.Distance(enemyManager.transform.position, origin) <= range)
             {
