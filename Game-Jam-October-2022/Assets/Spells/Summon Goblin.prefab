@@ -45,4 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 5
-  creaturePrefab: {fileID: 8237777669032357374, guid: a8e253db774fb614fa21ce1eba50d5e2, type: 3}
+  creaturePrefab: {fileID: 4649778113191871071, guid: 813c298c67f3c594f8a6982ae64ff889, type: 3}

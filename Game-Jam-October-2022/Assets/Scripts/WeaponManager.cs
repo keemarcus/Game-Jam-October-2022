@@ -7,8 +7,8 @@ using UnityEngine.U2D;
 public class WeaponManager : MonoBehaviour
 {
     SpriteRenderer spriteRenderer;
-    public Texture2D spriteSheet;
-    Sprite[] attackSprites;
+    //public Texture2D spriteSheet;
+    //Sprite[] attackSprites;
     BoxCollider2D damageCollider;
 
     CharacterManager character;
@@ -24,10 +24,10 @@ public class WeaponManager : MonoBehaviour
 
         damageCollider = GetComponent<BoxCollider2D>();
 
-        character = this.transform.parent.GetComponentInParent<CharacterManager>();
+        character = this.transform.GetComponent<CharacterManager>();
 
         // load all the individual sprites from the sprite sheet
-        attackSprites = Resources.LoadAll<Sprite>("4d_attacks/rmsheets/" + spriteSheet.name);
+        //attackSprites = Resources.LoadAll<Sprite>("4d_attacks/rmsheets/" + spriteSheet.name);
     }
 
     public void SetSprite(int index)
@@ -36,7 +36,7 @@ public class WeaponManager : MonoBehaviour
         if(index < 0) { spriteRenderer.sprite = null; }
         else
         {
-            spriteRenderer.sprite = attackSprites[index];
+            //spriteRenderer.sprite = attackSprites[index];
         }
         
     }
@@ -47,7 +47,7 @@ public class WeaponManager : MonoBehaviour
 
         if(hitCharacterManager != null)
         {
-            hitCharacterManager.TakeDamage(CalculateDamage(hitCharacterManager), damageType);
+            //hitCharacterManager.TakeDamage(CalculateDamage(hitCharacterManager), damageType);
         }
     }
 

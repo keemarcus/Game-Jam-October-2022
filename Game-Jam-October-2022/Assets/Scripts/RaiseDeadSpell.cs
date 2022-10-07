@@ -9,7 +9,7 @@ public class RaiseDeadSpell : Spell
         EnemyManager nearestTarget = CheckForTarget(origin);
         if(nearestTarget != null)
         {
-            nearestTarget.RaiseFromDead("Player");
+            nearestTarget.RaiseFromDead(caster.GetComponent<CharacterManager>().teamTag);
         }
     }
 

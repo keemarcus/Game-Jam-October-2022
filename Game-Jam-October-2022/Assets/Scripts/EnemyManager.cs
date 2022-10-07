@@ -53,13 +53,22 @@ public class EnemyManager : CharacterManager
     // Update is called once per frame
     void Update()
     {
-        if (selectedForRevive)
+        if(FindObjectOfType<PlayerManager>() != null && FindObjectOfType<PlayerManager>().transform.position.y > this.transform.position.y)
         {
-            this.gameObject.transform.GetChild(3).gameObject.SetActive(true);
+            this.GetComponent<SpriteRenderer>().sortingOrder = 6;
         }
         else
         {
-            this.gameObject.transform.GetChild(3).gameObject.SetActive(false);
+            this.GetComponent<SpriteRenderer>().sortingOrder = 4;
+        }
+
+        if (selectedForRevive)
+        {
+            this.gameObject.transform.GetChild(2).gameObject.SetActive(true);
+        }
+        else
+        {
+            this.gameObject.transform.GetChild(2).gameObject.SetActive(false);
         }
 
         if (isDead) { agent.enabled = false; return; }
