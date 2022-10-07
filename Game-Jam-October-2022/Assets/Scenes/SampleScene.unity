@@ -29958,6 +29958,10 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1906447125}
+    - target: {fileID: 4649778113191871059, guid: 813c298c67f3c594f8a6982ae64ff889, type: 3}
+      propertyPath: teamTag
+      value: Goblin
+      objectReference: {fileID: 0}
     - target: {fileID: 4649778113191871071, guid: 813c298c67f3c594f8a6982ae64ff889, type: 3}
       propertyPath: m_Name
       value: Shield Goblin

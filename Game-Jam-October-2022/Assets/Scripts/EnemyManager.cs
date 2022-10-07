@@ -64,11 +64,11 @@ public class EnemyManager : CharacterManager
 
         if (selectedForRevive)
         {
-            this.gameObject.transform.GetChild(2).gameObject.SetActive(true);
+            this.gameObject.transform.GetChild(1).gameObject.SetActive(true);
         }
         else
         {
-            this.gameObject.transform.GetChild(2).gameObject.SetActive(false);
+            this.gameObject.transform.GetChild(1).gameObject.SetActive(false);
         }
 
         if (isDead) { agent.enabled = false; return; }
