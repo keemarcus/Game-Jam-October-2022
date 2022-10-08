@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7572165351684925816}
   - component: {fileID: 4723896500239932163}
   m_Layer: 0
-  m_Name: Rasie Dead Slot
+  m_Name: Raise Dead Slot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

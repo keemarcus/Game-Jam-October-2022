@@ -62,8 +62,9 @@ public abstract class CharacterManager : MonoBehaviour
         //fileManager = GetComponent<CharacterStats>();
         //CharacterStats.currentHP = maxHP;
         isDead = false;
+        this.animationManager.animator.SetBool("Dead", false);
 
-        if(FileManager.GetStats(savePath + this.gameObject.name + "_stats.json").Equals(new CharacterManager.CharacterStats(0, 0, 0, "", Vector2.zero, "")))
+        if (FileManager.GetStats(savePath + this.gameObject.name + "_stats.json").Equals(new CharacterManager.CharacterStats(0, 0, 0, "", Vector2.zero, "")))
         {
             // set up a new save object for the characters stats
             characterStats = new CharacterStats(100, 1, 1, SceneManager.GetActiveScene().name, Vector2.zero, "Down");
@@ -128,6 +129,7 @@ public abstract class CharacterManager : MonoBehaviour
             characterStats.CurrentHP = 0;
             Debug.Log(this.gameObject.name + " died.");
             this.isDead = true;
+            this.animationManager.animator.SetBool("Dead", true);
             //this.gameObject.SetActive(false);
         }
     }

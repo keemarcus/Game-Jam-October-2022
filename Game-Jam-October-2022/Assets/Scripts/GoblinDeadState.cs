@@ -9,7 +9,7 @@ public class GoblinDeadState : AIState
     {   
         if(enemyManager.characterStats.CurrentHP > 0)
         {
-            enemyManager.gameObject.transform.GetChild(3).gameObject.SetActive(false);
+            enemyManager.gameObject.transform.GetChild(1).gameObject.SetActive(false);
             return idleState;
         }
         else

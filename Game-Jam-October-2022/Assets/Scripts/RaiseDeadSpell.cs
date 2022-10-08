@@ -28,7 +28,7 @@ public class RaiseDeadSpell : Spell
             {
                 if(nearestTarget == null || Vector2.Distance(enemyManager.transform.position, origin) < Vector2.Distance(nearestTarget.transform.position, origin))
                 {
-                    Debug.Log(enemyManager.gameObject.name);
+                    //Debug.Log(enemyManager.gameObject.name);
                     nearestTarget = enemyManager;
                 }
             }

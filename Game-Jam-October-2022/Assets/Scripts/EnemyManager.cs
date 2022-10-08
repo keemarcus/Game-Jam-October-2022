@@ -12,9 +12,11 @@ public class EnemyManager : CharacterManager
     public float sightRange = 10f;
     public float sightAngle = 30f;
     public AIState currentState;
+    //public AIState idleState;
     public LayerMask detectionLayerMask;
     public float idleWanderTimer;
     public bool selectedForRevive;
+    PlayerManager playerManager;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +27,8 @@ public class EnemyManager : CharacterManager
 
         idleWanderTimer = 0f;
         selectedForRevive = false;
+
+        playerManager = FindObjectOfType<PlayerManager>();
     }
 
     private void HandleStateMachine()
@@ -53,23 +57,27 @@ public class EnemyManager : CharacterManager
     // Update is called once per frame
     void Update()
     {
-        if(FindObjectOfType<PlayerManager>() != null && FindObjectOfType<PlayerManager>().transform.position.y > this.transform.position.y)
+        if(playerManager != null)
         {
-            this.GetComponent<SpriteRenderer>().sortingOrder = 6;
-        }
-        else
-        {
-            this.GetComponent<SpriteRenderer>().sortingOrder = 4;
-        }
+            if (playerManager.transform.position.y > this.transform.position.y)
+            {
+                this.GetComponent<SpriteRenderer>().sortingOrder = 6;
+            }
+            else
+            {
+                this.GetComponent<SpriteRenderer>().sortingOrder = 4;
+            }
 
-        if (selectedForRevive)
-        {
-            this.gameObject.transform.GetChild(1).gameObject.SetActive(true);
+            if (playerManager.activeSpell.name.Contains("Raise Dead") && this.selectedForRevive)
+            {
+                this.gameObject.transform.GetChild(1).gameObject.SetActive(true);
+            }
+            else
+            {
+                this.gameObject.transform.GetChild(1).gameObject.SetActive(false);
+            }
         }
-        else
-        {
-            this.gameObject.transform.GetChild(1).gameObject.SetActive(false);
-        }
+        
 
         if (isDead) { agent.enabled = false; return; }
         if (isInteracting) { agent.enabled = false; }
@@ -112,11 +120,15 @@ public class EnemyManager : CharacterManager
 
     public void RaiseFromDead(string newTeamTag)
     {
-        this.agent.enabled = true;
         this.isDead = false;
+        this.agent.enabled = true;
         this.characterStats.CurrentHP = this.characterStats.MaxHP;
         this.teamTag = newTeamTag;
         this.selectedForRevive = false;
+        this.animationManager.animator.SetBool("Dead", false);
+        this.target = null;
+        this.canSee = false;
+        //this.currentState = idleState;
     }
 
     public Vector3 RandomNavmeshLocation(float radius)
