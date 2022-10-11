@@ -10,6 +10,7 @@ public class GoblinBlockState : AIState
     {
         if (enemyManager.characterStats.CurrentHP == 0)
         {
+            enemyAnimationManager.animator.SetBool("Blocking", false);
             return deadState;
         }
 

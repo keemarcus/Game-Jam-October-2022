@@ -41,7 +41,7 @@ public class EnemyManager : CharacterManager
         {
             AIState nextState = currentState.Tick(this, this.animationManager);
 
-            if (nextState != null)
+            if (nextState != null && nextState != currentState)
             {
                 SwitchToNextState(nextState);
             }
@@ -124,6 +124,11 @@ public class EnemyManager : CharacterManager
 
     public void RaiseFromDead(string newTeamTag)
     {
+        if(this.gameObject.GetComponentInChildren<Shield>() != null)
+        {
+            this.gameObject.GetComponentInChildren<Shield>().gameObject.SetActive(false);
+            this.gameObject.GetComponent<GoblinPursueTargetState>().blockState = null;
+        }
         this.isDead = false;
         this.agent.enabled = true;
         this.characterStats.CurrentHP = this.characterStats.MaxHP;
