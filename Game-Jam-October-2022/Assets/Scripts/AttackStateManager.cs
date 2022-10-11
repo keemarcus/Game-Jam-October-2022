@@ -7,9 +7,9 @@ public class AttackStateManager : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.ResetTrigger("Attack");
-        animator.SetBool("Combo", false);
-        animator.GetComponent<AnimationManager>().ResetComboFlag();
-        animator.GetComponent<AnimationManager>().SetCanDoCombo(0);
+        //animator.SetBool("Combo", false);
+        //animator.GetComponent<AnimationManager>().ResetComboFlag();
+        //animator.GetComponent<AnimationManager>().SetCanDoCombo(0);
         animator.GetComponent<AnimationManager>().SetIsInteracting(1);
         PlayerManager playerManager = animator.GetComponent<PlayerManager>();
         if(playerManager != null)

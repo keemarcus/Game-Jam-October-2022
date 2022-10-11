@@ -11,12 +11,15 @@ public class EnemyManager : CharacterManager
     public bool canSee;
     public float sightRange = 10f;
     public float sightAngle = 30f;
+    public float minAttackRange;
+    public float maxAttackRange;
     public AIState currentState;
     //public AIState idleState;
     public LayerMask detectionLayerMask;
     public float idleWanderTimer;
     public bool selectedForRevive;
     PlayerManager playerManager;
+    public Shield shield;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +32,7 @@ public class EnemyManager : CharacterManager
         selectedForRevive = false;
 
         playerManager = FindObjectOfType<PlayerManager>();
+        shield = this.GetComponentInChildren<Shield>();
     }
 
     private void HandleStateMachine()

@@ -6,6 +6,7 @@ public class GoblinPursueTargetState : AIState
 {
     public GoblinIdleState idleState;
     public GoblinDeadState deadState;
+    public GoblinBlockState blockState;
     public override AIState Tick(EnemyManager enemyManager, AnimationManager enemyAnimationManager)
     {
         if (enemyManager.characterStats.CurrentHP == 0)
@@ -24,21 +25,46 @@ public class GoblinPursueTargetState : AIState
         }
         else
         {
+            Vector2 walkPosition = enemyManager.target.position;
+
             // go after the player
             #region Chase Target
-            if (Vector2.Distance(this.transform.position, enemyManager.target.position) <= 1.2f && enemyManager.agent.enabled)
+            if (blockState != null && enemyManager.shield != null && enemyManager.shield.GetNearestTeamate() != null)
+            {
+                Vector2 blockingPosition = enemyManager.shield.GetBlockingPosition();
+                if(blockingPosition == Vector2.zero)
+                {
+                    enemyManager.agent.enabled = false;
+                    enemyAnimationManager.UpdateAnimator(Time.fixedDeltaTime, 1, (enemyManager.target.position - enemyManager.transform.position));
+                    return blockState;
+                }
+                else
+                {
+                    enemyManager.agent.enabled = true;
+                    enemyManager.agent.SetDestination(blockingPosition);
+                    return this;
+                }
+            }
+
+            if (Vector2.Distance(this.transform.position, enemyManager.target.position) <= enemyManager.maxAttackRange && Vector2.Distance(this.transform.position, enemyManager.target.position) >= enemyManager.minAttackRange && enemyManager.agent.enabled)
             {
                 enemyManager.agent.enabled = false;
-                enemyManager.isInteracting = true;
+                enemyAnimationManager.UpdateAnimator(Time.fixedDeltaTime, 1, (enemyManager.target.position - enemyManager.transform.position));
                 enemyManager.HandleAttack();
             }
             else 
             {
                 enemyManager.agent.enabled = true;
-                enemyManager.isInteracting = false;
-            }
 
-            if (enemyManager.agent.enabled) { enemyManager.agent.SetDestination(enemyManager.target.position); }
+                if(Vector2.Distance(this.transform.position, enemyManager.target.position) < enemyManager.minAttackRange)
+                {
+                    enemyManager.agent.SetDestination(enemyManager.transform.position + (enemyManager.transform.position - enemyManager.target.position).normalized);
+                }
+                else
+                {
+                    enemyManager.agent.SetDestination(enemyManager.target.position);
+                }
+            }
             #endregion
 
             return this;
