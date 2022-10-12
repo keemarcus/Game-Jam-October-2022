@@ -135,6 +135,11 @@ public abstract class CharacterManager : MonoBehaviour
             Debug.Log(this.gameObject.name + " died.");
             this.isDead = true;
             this.animationManager.animator.SetBool("Dead", true);
+            // disable the colliders for this character when they die
+            foreach(Collider2D collider in this.gameObject.GetComponents<Collider2D>())
+            {
+                collider.enabled = false;
+            }
         }
     }
 

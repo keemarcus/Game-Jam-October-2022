@@ -93,7 +93,7 @@ public class EnemyManager : CharacterManager
     {
         if(playerManager != null)
         {
-            if (playerManager.transform.position.y > this.transform.position.y)
+            if (playerManager.transform.position.y > this.transform.position.y && !this.isDead)
             {
                 this.GetComponent<SpriteRenderer>().sortingOrder = 6;
             }
@@ -156,7 +156,6 @@ public class EnemyManager : CharacterManager
     {
         if(this.gameObject.GetComponentInChildren<Shield>() != null)
         {
-            this.gameObject.GetComponentInChildren<Shield>().gameObject.SetActive(false);
             this.gameObject.GetComponent<GoblinPursueTargetState>().blockState = null;
         }
         this.isDead = false;
@@ -167,7 +166,15 @@ public class EnemyManager : CharacterManager
         this.animationManager.animator.SetBool("Dead", false);
         this.target = null;
         this.canSee = false;
-        //this.currentState = idleState;
+
+        // reenable all the colliders for this character
+        foreach (Collider2D collider in this.gameObject.GetComponents<Collider2D>())
+        {
+            if(collider != meleeAttackCollider)
+            {
+                collider.enabled = true;
+            } 
+        }
     }
 
     public Vector3 RandomNavmeshLocation(float radius)

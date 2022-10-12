@@ -10,6 +10,7 @@ public class MissileSpell : Spell
     public int spellEffectAmount;
     public string spellEffectType;
     public string casterTeam;
+    Transform casterTransform;
 
     public override void Create(Vector2 origin, GameObject caster)
     {
@@ -19,6 +20,20 @@ public class MissileSpell : Spell
         newSpell.GetComponent<Rigidbody2D>().velocity = caster.GetComponent<CharacterManager>().aimDirection * missileSpeed;
         Physics2D.IgnoreCollision(newSpell.GetComponent<Collider2D>(), caster.GetComponent<Collider2D>());
         newSpell.GetComponent<MissileSpell>().casterTeam = caster.GetComponent<CharacterManager>().teamTag;
+        newSpell.GetComponent<MissileSpell>().casterTransform = caster.gameObject.transform;
+    }
+
+    private void Update()
+    {
+        if(casterTransform == null)
+        {
+            Debug.Log("no caster set");
+        }
+        // destroy the spell if it's beyond the range away from the caster
+        if(Vector2.Distance(this.transform.position, casterTransform.position) > this.range)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -27,8 +42,8 @@ public class MissileSpell : Spell
         CharacterManager hitCharacterManager = collision.gameObject.GetComponent<CharacterManager>();
         if (hitCharacterManager != null)
         {
-            // if we hit a teamate of the caster, ignore this collsion
-            if(hitCharacterManager.teamTag == this.casterTeam) { return; }
+            // if we hit a teamate of the caster or a dead character, ignore this collsion
+            if(hitCharacterManager.teamTag == this.casterTeam || hitCharacterManager.isDead) { return; }
 
             // check what type of spell this is
             switch (CheckType())
