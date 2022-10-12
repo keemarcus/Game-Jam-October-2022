@@ -14,12 +14,19 @@ public class EnemyManager : CharacterManager
     public float minAttackRange;
     public float maxAttackRange;
     public AIState currentState;
-    //public AIState idleState;
     public LayerMask detectionLayerMask;
     public float idleWanderTimer;
     public bool selectedForRevive;
     PlayerManager playerManager;
     public Shield shield;
+
+    public SpellSlot spell;
+    public GameObject spellOriginOffset;
+
+    public Collider2D meleeAttackCollider;
+    public int meleeDamage;
+    public string meleeDamageType;
+
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +40,29 @@ public class EnemyManager : CharacterManager
 
         playerManager = FindObjectOfType<PlayerManager>();
         shield = this.GetComponentInChildren<Shield>();
+        alreadyCast = false;
+    }
+
+    public void Cast()
+    {
+        if (spell == null || spellOriginOffset == null || alreadyCast || this.aimDirection == Vector2.zero) { return; }
+        aimDirection.Normalize();
+        spell.Cast(spellOriginOffset.transform.position, this.gameObject);
+        alreadyCast = true;
+    }
+
+    public void MeleeAttack(CharacterManager targetHit)
+    {
+        targetHit.TakeDamage(this.meleeDamage, this.meleeDamageType);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        CharacterManager targetHit = collision.gameObject.GetComponent<CharacterManager>();
+        if(targetHit != null && targetHit.teamTag != this.teamTag)
+        {
+            MeleeAttack(targetHit);
+        }
     }
 
     private void HandleStateMachine()

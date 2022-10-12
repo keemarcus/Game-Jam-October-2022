@@ -14,8 +14,8 @@ public class PlayerManager : CharacterManager
     public int activeSpellIndex;
     public SpellSlot[] spells;
     public GameObject spellOriginOffset;
-    public Vector2 aimDirection;
-    public bool alreadyCast;
+    //public Vector2 aimDirection;
+    //public bool alreadyCast;
 
     void Start()
     {
@@ -36,9 +36,7 @@ public class PlayerManager : CharacterManager
     public void Cast()
     {
         if (alreadyCast || this.aimDirection == Vector2.zero) { return; }
-        //Debug.Log(spellOriginOffset.transform.localPosition);
         aimDirection.Normalize();
-        //Debug.Log(activeSpell.spellPrefab.name);
         activeSpell.Cast(spellOriginOffset.transform.position, this.gameObject);
         alreadyCast = true;
     }

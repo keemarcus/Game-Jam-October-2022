@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Goblin Shield Block Up
+  m_Name: changeling dead down
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -20,7 +20,7 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 1493786741, guid: 70c0b614c48929045bf227cbd8a3d42f, type: 3}
+      value: {fileID: 1985903362, guid: 573c5dc932bc04641b3ebfd8c168b095, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -41,7 +41,7 @@ AnimationClip:
       isPPtrCurve: 1
       isIntCurve: 0
     pptrCurveMapping:
-    - {fileID: 1493786741, guid: 70c0b614c48929045bf227cbd8a3d42f, type: 3}
+    - {fileID: 1985903362, guid: 573c5dc932bc04641b3ebfd8c168b095, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

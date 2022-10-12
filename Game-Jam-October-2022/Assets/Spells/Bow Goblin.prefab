@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &268810291686171733
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3105803332321225036}
+  m_Layer: 11
+  m_Name: Spell Cast Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3105803332321225036
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 268810291686171733}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1968671534817173615}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1968671534446245680
 GameObject:
   m_ObjectHideFlags: 0
@@ -101,7 +132,6 @@ GameObject:
   - component: {fileID: 1968671534692739390}
   - component: {fileID: 1968671534692739377}
   - component: {fileID: 1968671534692739376}
-  - component: {fileID: 1968671534817173612}
   - component: {fileID: 4355395891747450995}
   - component: {fileID: 3800025992439705073}
   - component: {fileID: 1101021491706077958}
@@ -127,6 +157,7 @@ Transform:
   m_Children:
   - {fileID: 1968671534821142624}
   - {fileID: 1968671534446245681}
+  - {fileID: 3105803332321225036}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -215,6 +246,8 @@ MonoBehaviour:
   sightVector: {x: 0, y: -1}
   canDoCombo: 0
   comboFlag: 0
+  aimDirection: {x: 0, y: 0}
+  alreadyCast: 0
   characterStats:
     MaxHP: 0
     CurrentHP: 0
@@ -240,6 +273,12 @@ MonoBehaviour:
     m_Bits: 2048
   idleWanderTimer: 0
   selectedForRevive: 0
+  shield: {fileID: 0}
+  spell: {fileID: 1794098469125919144, guid: 2adf81ad186300a4d89ffb65522821a9, type: 3}
+  spellOriginOffset: {fileID: 268810291686171733}
+  meleeAttackCollider: {fileID: 0}
+  meleeDamage: 0
+  meleeDamageType: 
 --- !u!70 &1968671534692739391
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -250,7 +289,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.018826485, y: 0.26783442}
@@ -342,20 +381,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1968671534692739377}
   characterManager: {fileID: 1968671534817173614}
---- !u!114 &1968671534817173612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1968671534817173602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2a93c31d2138114f9e3be562e1d4188, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageType: 
-  baseDamage: 0
 --- !u!114 &4355395891747450995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -382,6 +407,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88483a9d59bbc424b9403744021221d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deadState: {fileID: 0}
+  pursueState: {fileID: 0}
 --- !u!114 &1101021491706077958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -396,6 +423,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idleState: {fileID: 4355395891747450995}
   deadState: {fileID: 5663085629650140981}
+  blockState: {fileID: 0}
 --- !u!114 &5663085629650140981
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -15,6 +15,8 @@ public abstract class CharacterManager : MonoBehaviour
     [Header("Combat Stuff")]
     public bool canDoCombo;
     public bool comboFlag;
+    public Vector2 aimDirection;
+    public bool alreadyCast;
 
     [Serializable]
     public struct CharacterStats
@@ -67,7 +69,7 @@ public abstract class CharacterManager : MonoBehaviour
         if (FileManager.GetStats(savePath + this.gameObject.name + "_stats.json").Equals(new CharacterManager.CharacterStats(0, 0, 0, "", Vector2.zero, "")))
         {
             // set up a new save object for the characters stats
-            characterStats = new CharacterStats(100, 1, 1, SceneManager.GetActiveScene().name, Vector2.zero, "Down");
+            characterStats = new CharacterStats(50, 0, 0, SceneManager.GetActiveScene().name, Vector2.zero, "Down");
             FileManager.SaveStats(savePath + this.gameObject.name + "_stats.json", characterStats);
         }
         else
@@ -122,6 +124,9 @@ public abstract class CharacterManager : MonoBehaviour
 
     public void TakeDamage(int damageAmount, string damageType)
     {
+        // remove the damage resistance value from the incoming damage
+        damageAmount = Math.Clamp(damageAmount - characterStats.DamageResistance, 0, damageAmount);
+
         Debug.Log(this.gameObject.name + " took " + damageAmount + " " + damageType +" damage.");
         characterStats.CurrentHP -= damageAmount;
         if(characterStats.CurrentHP <= 0)
@@ -130,7 +135,6 @@ public abstract class CharacterManager : MonoBehaviour
             Debug.Log(this.gameObject.name + " died.");
             this.isDead = true;
             this.animationManager.animator.SetBool("Dead", true);
-            //this.gameObject.SetActive(false);
         }
     }
 

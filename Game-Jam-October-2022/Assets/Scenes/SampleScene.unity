@@ -12688,6 +12688,8 @@ MonoBehaviour:
   sightVector: {x: 0, y: 0}
   canDoCombo: 0
   comboFlag: 0
+  aimDirection: {x: 0, y: 0}
+  alreadyCast: 0
   characterStats:
     MaxHP: 0
     CurrentHP: 0
@@ -12706,8 +12708,6 @@ MonoBehaviour:
   - {fileID: 8587253499955703411, guid: a04987821cf91484ab1a0dbd2192d4c6, type: 3}
   - {fileID: 4723896500239932163, guid: 6a04448b7e492d1419b7301f37a7b2eb, type: 3}
   spellOriginOffset: {fileID: 0}
-  aimDirection: {x: 0, y: 0}
-  alreadyCast: 0
 --- !u!4 &1395556975
 Transform:
   m_ObjectHideFlags: 0
@@ -12825,6 +12825,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   range: 5
   creaturePrefab: {fileID: 4649778113191871071, guid: 813c298c67f3c594f8a6982ae64ff889, type: 3}
+--- !u!60 &1518420775 stripped
+PolygonCollider2D:
+  m_CorrespondingSourceObject: {fileID: 3212403921907789646, guid: db143c462cd5e464cb67893f5fd3f66b, type: 3}
+  m_PrefabInstance: {fileID: 1944228121}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1548715523
 GameObject:
   m_ObjectHideFlags: 0
@@ -13371,6 +13376,8 @@ MonoBehaviour:
   sightVector: {x: 0, y: 0}
   canDoCombo: 0
   comboFlag: 0
+  aimDirection: {x: 0, y: 0}
+  alreadyCast: 0
   characterStats:
     MaxHP: 0
     CurrentHP: 0
@@ -13400,8 +13407,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2239982628760906338, guid: db143c462cd5e464cb67893f5fd3f66b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2239982628760906350, guid: db143c462cd5e464cb67893f5fd3f66b, type: 3}
+      propertyPath: meleeAttackCollider
+      value: 
+      objectReference: {fileID: 1518420775}
     - target: {fileID: 2239982628760906351, guid: db143c462cd5e464cb67893f5fd3f66b, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -13445,6 +13456,10 @@ PrefabInstance:
     - target: {fileID: 2239982628760906351, guid: db143c462cd5e464cb67893f5fd3f66b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3212403921907789646, guid: db143c462cd5e464cb67893f5fd3f66b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -28155,6 +28170,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bow Goblin
       objectReference: {fileID: 0}
+    - target: {fileID: 1968671534817173602, guid: 32a3751b600598a429da711fe4736eea, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1968671534817173615, guid: 32a3751b600598a429da711fe4736eea, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -28197,6 +28216,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1968671534817173615, guid: 32a3751b600598a429da711fe4736eea, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3105803332321225036, guid: 32a3751b600598a429da711fe4736eea, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3105803332321225036, guid: 32a3751b600598a429da711fe4736eea, type: 3}
+      propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

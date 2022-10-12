@@ -5,12 +5,10 @@ using UnityEngine;
 public class Shield : MonoBehaviour
 {
     EnemyManager enemyManager;
-    Collider2D shieldCollider;
 
     private void Awake()
     {
-        enemyManager = this.transform.parent.gameObject.GetComponent<EnemyManager>();
-        shieldCollider = this.gameObject.GetComponent<Collider2D>();
+        enemyManager = this.gameObject.GetComponent<EnemyManager>();
     }
 
     public EnemyManager GetNearestTeamate()
@@ -41,7 +39,7 @@ public class Shield : MonoBehaviour
         {
             float rayDistance = Vector2.Distance(enemyManager.target.position, nearestTeamate.transform.position);
             RaycastHit2D hit = Physics2D.Raycast(enemyManager.target.position, (nearestTeamate.transform.position - enemyManager.target.position), rayDistance);
-            if((hit.collider == shieldCollider || hit.collider.gameObject == enemyManager.gameObject) && (Vector2.Distance(hit.point, nearestTeamate.transform.position) >  rayDistance / 3))// && (Vector2.Distance(hit.point, enemyManager.target.position) > rayDistance / 4))
+            if(hit.collider.gameObject == enemyManager.gameObject && (Vector2.Distance(hit.point, nearestTeamate.transform.position) >  rayDistance / 3))
             {
                 return Vector2.zero;
             }

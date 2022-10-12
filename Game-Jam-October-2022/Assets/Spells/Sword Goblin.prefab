@@ -132,11 +132,11 @@ GameObject:
   - component: {fileID: 2239982628632339262}
   - component: {fileID: 2239982628632339249}
   - component: {fileID: 2239982628632339248}
-  - component: {fileID: 2239982628760906348}
   - component: {fileID: 4050246233315932787}
   - component: {fileID: 3528644525532325873}
   - component: {fileID: 793681606116354310}
   - component: {fileID: 5391783340385760565}
+  - component: {fileID: 3212403921907789646}
   m_Layer: 11
   m_Name: Sword Goblin
   m_TagString: Untagged
@@ -246,6 +246,8 @@ MonoBehaviour:
   sightVector: {x: 0, y: -1}
   canDoCombo: 0
   comboFlag: 0
+  aimDirection: {x: 0, y: 0}
+  alreadyCast: 0
   characterStats:
     MaxHP: 0
     CurrentHP: 0
@@ -271,6 +273,12 @@ MonoBehaviour:
     m_Bits: 2048
   idleWanderTimer: 0
   selectedForRevive: 0
+  shield: {fileID: 0}
+  spell: {fileID: 0}
+  spellOriginOffset: {fileID: 0}
+  meleeAttackCollider: {fileID: 0}
+  meleeDamage: 20
+  meleeDamageType: Slashing
 --- !u!70 &2239982628632339263
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -281,7 +289,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.018826485, y: 0.26783442}
@@ -373,20 +381,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 2239982628632339249}
   characterManager: {fileID: 2239982628760906350}
---- !u!114 &2239982628760906348
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2239982628760906338}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2a93c31d2138114f9e3be562e1d4188, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageType: 
-  baseDamage: 0
 --- !u!114 &4050246233315932787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -413,6 +407,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88483a9d59bbc424b9403744021221d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deadState: {fileID: 0}
+  pursueState: {fileID: 0}
 --- !u!114 &793681606116354310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -427,6 +423,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idleState: {fileID: 4050246233315932787}
   deadState: {fileID: 5391783340385760565}
+  blockState: {fileID: 0}
 --- !u!114 &5391783340385760565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -440,3 +437,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   idleState: {fileID: 4050246233315932787}
+--- !u!60 &3212403921907789646
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2239982628760906338}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3, y: 3}
+    newSize: {x: 3, y: 3}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.19150351, y: 0.5397968}
+      - {x: -0.15481713, y: 0.3185975}
+      - {x: -0.1528445, y: 0.3264837}
+      - {x: 0.09512246, y: -0.13701266}
+      - {x: 0.70434994, y: -0.3254677}
+      - {x: 1.5247966, y: -0.31351596}
+      - {x: 1.5, y: 0.875}
+      - {x: 0.9375, y: 1.125}
+  m_UseDelaunayMesh: 0
