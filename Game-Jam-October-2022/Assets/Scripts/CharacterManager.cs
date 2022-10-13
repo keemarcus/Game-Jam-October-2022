@@ -143,6 +143,25 @@ public abstract class CharacterManager : MonoBehaviour
         }
     }
 
+    public void SetDirection()
+    {
+        switch (aimDirection.x, aimDirection.y)
+        {
+            case (-1,0):
+                SetDirection(1);
+                break;
+            case (1, 0):
+                SetDirection(2);
+                break;
+            case (0, 1):
+                SetDirection(3);
+                break;
+            default:
+                SetDirection(0);
+                break;
+        }
+    }
+
     public void SetDirection(int directionKey)
     {
         switch (directionKey)

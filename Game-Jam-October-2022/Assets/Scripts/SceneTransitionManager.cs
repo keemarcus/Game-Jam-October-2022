@@ -29,6 +29,13 @@ public class SceneTransitionManager : MonoBehaviour
 
     public void TransitionScene()
     {
+        // save the postion of every enemy 
+        foreach(EnemyManager enemy in FindObjectsOfType<EnemyManager>())
+        {
+            enemy.SetDirection();
+            enemy.UpdateStats(SceneManager.GetActiveScene().name, enemy.transform.position, enemy.characterStats.CharacterDirection);
+        }
+
         SceneManager.LoadSceneAsync(targetScene, LoadSceneMode.Single);
     }
 }
