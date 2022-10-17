@@ -240,6 +240,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 10
+  energyCost: 10
+  UIImage: {fileID: -3139848299388573714, guid: 47453a0e0f52753478f98132486684c7, type: 3}
   missileSpeed: 10
   spellType: Attack
   spellEffectAmount: 12

@@ -26,18 +26,20 @@ public abstract class CharacterManager : MonoBehaviour
         public int CurrentHP;
         public int HitBonus;
         public int DamageResistance;
+        public float EnergyLevel;
 
         [Header("Character Position")]
         public string CharacterScene;
         public Vector2 CharacterPosition;
         public string CharacterDirection;
 
-        public CharacterStats(int maxHP, int hitBonus, int damageResistance, string characterScene, Vector2 characterPosition, string characterDirection)
+        public CharacterStats(int maxHP, int hitBonus, int damageResistance, float energyLevel, string characterScene, Vector2 characterPosition, string characterDirection)
         {
             MaxHP = maxHP;
             CurrentHP = MaxHP;
             HitBonus = hitBonus;
             DamageResistance = damageResistance;
+            EnergyLevel = energyLevel;
             CharacterScene = characterScene;
             CharacterPosition = characterPosition;
             CharacterDirection = characterDirection;
@@ -66,10 +68,10 @@ public abstract class CharacterManager : MonoBehaviour
         isDead = false;
         this.animationManager.animator.SetBool("Dead", false);
 
-        if (FileManager.GetStats(savePath + this.gameObject.name + "_stats.json").Equals(new CharacterManager.CharacterStats(0, 0, 0, "", Vector2.zero, "")))
+        if (FileManager.GetStats(savePath + this.gameObject.name + "_stats.json").Equals(new CharacterManager.CharacterStats(0, 0, 0, 100, "", Vector2.zero, "")))
         {
             // set up a new save object for the characters stats
-            characterStats = new CharacterStats(50, 0, 0, SceneManager.GetActiveScene().name, Vector2.zero, "Down");
+            characterStats = new CharacterStats(50, 0, 0, 100, SceneManager.GetActiveScene().name, Vector2.zero, "Down");
             FileManager.SaveStats(savePath + this.gameObject.name + "_stats.json", characterStats);
         }
         else

@@ -8,6 +8,7 @@ public class PlayerManager : CharacterManager
     InputManager inputManager;
     PlayerLocomotion playerLocomotion;
     CameraManager cameraManager;
+    SpellUIManager spellUIManager;
 
     [Header("Spells")]
     public SpellSlot activeSpell;
@@ -26,6 +27,8 @@ public class PlayerManager : CharacterManager
         activeSpellIndex = 0;
         ChangeActiveSpell(0);
         alreadyCast = false;
+        spellUIManager = FindObjectOfType<SpellUIManager>();
+        UpdateSpellUI();
     }
 
     new public void HandleAttack()
@@ -35,10 +38,14 @@ public class PlayerManager : CharacterManager
 
     public void Cast()
     {
-        if (alreadyCast || this.aimDirection == Vector2.zero) { return; }
+        if (alreadyCast || this.aimDirection == Vector2.zero || this.characterStats.EnergyLevel < activeSpell.spellScript.energyCost) { return; }
         aimDirection.Normalize();
         activeSpell.Cast(spellOriginOffset.transform.position, this.gameObject);
         alreadyCast = true;
+
+        // update player energy level
+        this.characterStats.EnergyLevel = Mathf.Clamp(this.characterStats.EnergyLevel -= activeSpell.spellScript.energyCost, 0, 100);
+        UpdateSpellUI();
     }
 
     public void ChangeActiveSpell(float direction)
@@ -67,6 +74,17 @@ public class PlayerManager : CharacterManager
         }
 
         activeSpell = spells[activeSpellIndex];
+        UpdateSpellUI();
+    }
+    public void UpdateSpellUI()
+    {
+        if(spellUIManager == null) { return; }
+        spellUIManager.SetEnergyAmount(this.characterStats.EnergyLevel);
+        spellUIManager.SetActiveSpell(activeSpellIndex);
+        for(int i = 0; i < spells.Length; i ++)
+        {
+            spellUIManager.SetSpellImage(i, spells[i].spellScript.UIImage);
+        }
     }
 
     void Update()
@@ -92,10 +110,14 @@ public class PlayerManager : CharacterManager
         // update the animator
         animationManager.UpdateAnimator(delta, inputManager.moveAmount, new Vector2(inputManager.horizontal, inputManager.vertical));
 
+        // update the camera postion
         if (cameraManager != null)
         {
             cameraManager.FollowTarget(delta);
         }
+
+        // update the spell UI components
+        //UpdateSpellUI();
     }
 
     private void LateUpdate()
