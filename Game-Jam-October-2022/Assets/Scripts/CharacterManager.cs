@@ -65,8 +65,7 @@ public abstract class CharacterManager : MonoBehaviour
         }
         //fileManager = GetComponent<CharacterStats>();
         //CharacterStats.currentHP = maxHP;
-        isDead = false;
-        this.animationManager.animator.SetBool("Dead", false);
+        
 
         if (FileManager.GetStats(savePath + this.gameObject.name + "_stats.json").Equals(new CharacterManager.CharacterStats(0, 0, 0, 100, "", Vector2.zero, "")))
         {
@@ -102,6 +101,11 @@ public abstract class CharacterManager : MonoBehaviour
                     break;
             }
         }
+
+        // determine if the character is dead already
+        if (this.characterStats.CurrentHP <= 0) { this.isDead = true; }
+        else { this.isDead = false; }
+        this.animationManager.animator.SetBool("Dead", this.isDead);
     }
 
     public void UpdateStats()
