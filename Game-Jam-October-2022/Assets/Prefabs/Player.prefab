@@ -76,7 +76,7 @@ MonoBehaviour:
   activeSpellIndex: 0
   spells:
   - {fileID: 611690905917008570, guid: 176d8825a658b4c429ee214b12baaaa2, type: 3}
-  - {fileID: 8587253499955703411, guid: a04987821cf91484ab1a0dbd2192d4c6, type: 3}
+  - {fileID: 7030682371855380849, guid: fe86932410a2667408a183b00dd7fc89, type: 3}
   - {fileID: 4723896500239932163, guid: 6a04448b7e492d1419b7301f37a7b2eb, type: 3}
   spellOriginOffset: {fileID: 0}
 --- !u!114 &8342923279448222420
