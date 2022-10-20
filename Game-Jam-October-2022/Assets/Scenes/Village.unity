@@ -1103,6 +1103,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bow Goblin
       objectReference: {fileID: 0}
+    - target: {fileID: 1968671534817173602, guid: 32a3751b600598a429da711fe4736eea, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1968671534817173615, guid: 32a3751b600598a429da711fe4736eea, type: 3}
       propertyPath: m_RootOrder
       value: 1

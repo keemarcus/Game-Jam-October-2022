@@ -149,7 +149,7 @@ public abstract class CharacterManager : MonoBehaviour
         }
     }
 
-    public void SetDirection()
+    public void SetDirectionCHARMAN()
     {
         switch (aimDirection.x, aimDirection.y)
         {
@@ -170,6 +170,7 @@ public abstract class CharacterManager : MonoBehaviour
 
     public void SetDirection(int directionKey)
     {
+        Debug.Log("Character Manager");
         switch (directionKey)
         {
             case 1:

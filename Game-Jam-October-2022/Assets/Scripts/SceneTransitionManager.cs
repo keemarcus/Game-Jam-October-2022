@@ -32,7 +32,7 @@ public class SceneTransitionManager : MonoBehaviour
         // save the postion of every enemy 
         foreach(EnemyManager enemy in FindObjectsOfType<EnemyManager>())
         {
-            enemy.SetDirection();
+            //enemy.SetDirection();
             enemy.UpdateStats(SceneManager.GetActiveScene().name, enemy.transform.position, enemy.characterStats.CharacterDirection);
         }
 

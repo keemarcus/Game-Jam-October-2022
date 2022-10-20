@@ -32,6 +32,7 @@ public class GoblinIdleState : AIState
             {
                 //Debug.Log("Not Moving");
                 // if not, find a new random destination nearby and start heading there
+                enemyManager.agent.enabled = true;
                 enemyManager.agent.SetDestination(enemyManager.RandomNavmeshLocation(5f));
                 enemyManager.idleWanderTimer = 0f;
             }

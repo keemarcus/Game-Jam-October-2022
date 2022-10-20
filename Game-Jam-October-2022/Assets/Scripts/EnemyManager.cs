@@ -123,6 +123,8 @@ public class EnemyManager : CharacterManager
 
     public void LookForEnemy()
     {
+        this.target = null;
+        
         Debug.DrawRay(sight.transform.position, sightVector, Color.red, 1f);
 
         // see if any characters are within sight range
@@ -131,7 +133,7 @@ public class EnemyManager : CharacterManager
         {
 
             // first check to see if the target is an enemy
-            if(target.gameObject.GetComponent<CharacterManager>() != null && target.gameObject.GetComponent<CharacterManager>().teamTag != teamTag && target.gameObject.GetComponent<CharacterManager>().teamTag != "NPC")
+            if(target.gameObject.GetComponent<CharacterManager>() != null && target.gameObject.GetComponent<CharacterManager>().teamTag != teamTag && target.gameObject.GetComponent<CharacterManager>().teamTag != "NPC" && !target.gameObject.GetComponentInChildren<CharacterManager>().isDead)
             {                
                 // then see if we are looking in that direction
                 Vector2 vectorToTarget = target.transform.position - sight.transform.position;
@@ -142,13 +144,22 @@ public class EnemyManager : CharacterManager
                     RaycastHit2D hit = Physics2D.Raycast(sight.transform.position, (target.transform.position - sight.transform.position), sightRange, detectionLayerMask);
                     if (hit && hit.collider.gameObject.GetComponentInChildren<CharacterManager>()) 
                     { 
-                        canSee = true;
+                        //canSee = true;
                         // set the new target
                         this.target = hit.collider.gameObject.transform.GetChild(1);
                     }
-                    else { canSee = false; }
+                    //else { canSee = false; }
                 }
             }
+        }
+
+        if (this.target == null)
+        {
+            this.canSee = false;
+        }
+        else
+        {
+            this.canSee = true;
         }
     }
 

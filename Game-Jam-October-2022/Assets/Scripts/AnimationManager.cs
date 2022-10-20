@@ -18,6 +18,10 @@ public class AnimationManager : MonoBehaviour
     public void UpdateAnimator(float delta, float moveAmount, Vector2 moveDirection)
     {
         bool walking = (moveAmount > 0);
+        if(moveDirection != Vector2.zero)
+        {
+            characterManager.sightVector = moveDirection.normalized;
+        }
         // update animator values based on input
         if (walking != animator.GetBool("Walking")) { animator.SetBool("Walking", walking); }
         if(walking)
