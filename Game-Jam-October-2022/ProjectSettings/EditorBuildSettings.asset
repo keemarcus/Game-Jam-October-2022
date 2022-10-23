@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Village.unity
     guid: 2a86aa1ac76fd5942887c731e5feec33
+  - enabled: 1
+    path: Assets/Scenes/EndCredits.unity
+    guid: b8ace4be859bb314197afa35ff975d36
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 612a641d6cd4f9641be34a6b49e45c8c
   m_configObjects: {}
