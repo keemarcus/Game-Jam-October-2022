@@ -6,11 +6,12 @@ using UnityEngine.UI;
 public class SpellUIManager : MonoBehaviour
 {
     public Slider energySlider;
+    public Slider healthSlider;
     public SpellImageManager[] spellImageManagers;
     
     void Awake()
     {
-        energySlider = this.gameObject.GetComponentInChildren<Slider>();
+        //energySlider = this.gameObject.GetComponentInChildren<Slider>();
         spellImageManagers = this.gameObject.GetComponentsInChildren<SpellImageManager>();
     }
 
@@ -21,6 +22,15 @@ public class SpellUIManager : MonoBehaviour
 
         // set the value of the slider
         energySlider.value = newAmount;
+    }
+
+    public void SetHealthAmount(float newAmount)
+    {
+        // make sure we're setting the amount somewhere between 0 and 100
+        newAmount = Mathf.Clamp(newAmount, 0, healthSlider.maxValue);
+
+        // set the value of the slider
+        healthSlider.value = Mathf.Lerp(healthSlider.value, newAmount, Time.deltaTime);
     }
 
     public void SetActiveSpell(int index)

@@ -17,6 +17,7 @@ public abstract class CharacterManager : MonoBehaviour
     public bool comboFlag;
     public Vector2 aimDirection;
     public bool alreadyCast;
+    protected float healthRegenTimer;
 
     [Serializable]
     public struct CharacterStats
@@ -147,6 +148,8 @@ public abstract class CharacterManager : MonoBehaviour
                 collider.enabled = false;
             }
         }
+
+        this.healthRegenTimer = 0f;
     }
 
     public void SetDirectionCHARMAN()

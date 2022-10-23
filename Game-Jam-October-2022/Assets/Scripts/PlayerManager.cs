@@ -10,6 +10,8 @@ public class PlayerManager : CharacterManager
     CameraManager cameraManager;
     SpellUIManager spellUIManager;
 
+    private int lastHealthIncrement;
+
     [Header("Spells")]
     public SpellSlot activeSpell;
     public int activeSpellIndex;
@@ -29,6 +31,7 @@ public class PlayerManager : CharacterManager
         alreadyCast = false;
         spellUIManager = FindObjectOfType<SpellUIManager>();
         UpdateSpellUI();
+        spellUIManager.healthSlider.maxValue = this.characterStats.MaxHP;
     }
 
     new public void HandleAttack()
@@ -96,6 +99,25 @@ public class PlayerManager : CharacterManager
         inputManager.TickInput(delta);
 
         activeSpell.spellScript.CheckForTarget(spellOriginOffset.transform.position);
+
+        // health regen
+        if(this.healthRegenTimer < 50f)
+        {
+            healthRegenTimer += delta;
+            int newHealthIncrement = (int)Mathf.Floor(healthRegenTimer);
+            if (this.characterStats.CurrentHP < this.characterStats.MaxHP  && newHealthIncrement > lastHealthIncrement)
+            {
+                lastHealthIncrement = newHealthIncrement;
+                this.characterStats.CurrentHP = (int)Mathf.Clamp(this.characterStats.CurrentHP + newHealthIncrement, this.characterStats.CurrentHP, this.characterStats.MaxHP);
+            }
+        }
+
+
+        // update the health bar
+        if(spellUIManager.healthSlider.value != this.characterStats.CurrentHP)
+        {
+            spellUIManager.SetHealthAmount(this.characterStats.CurrentHP);
+        }
     }
 
     private void FixedUpdate()
