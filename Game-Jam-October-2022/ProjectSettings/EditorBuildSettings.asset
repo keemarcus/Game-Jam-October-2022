@@ -17,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 612a641d6cd4f9641be34a6b49e45c8c
+  - enabled: 1
+    path: Assets/Scenes/Woods.unity
+    guid: 3b0e1f14fa8ef9c4ebe9fa7165336563
+  - enabled: 1
+    path: Assets/Scenes/GoblinVillage.unity
+    guid: e57a454ba7db36b4893a7e419a75ef48
   m_configObjects: {}
