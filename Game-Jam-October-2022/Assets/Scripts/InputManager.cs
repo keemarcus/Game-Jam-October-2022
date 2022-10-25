@@ -114,6 +114,10 @@ public class InputManager : MonoBehaviour
         }
 
         // transition to the next scene
+        if (GameObject.FindGameObjectWithTag("Music") != null)
+        {
+            GameObject.FindGameObjectWithTag("Music").GetComponent<Music>().StopMusic();
+        }
         SceneManager.LoadSceneAsync(targetScene, LoadSceneMode.Single);
     }
 

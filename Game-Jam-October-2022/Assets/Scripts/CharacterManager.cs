@@ -6,7 +6,7 @@ using System;
 
 public abstract class CharacterManager : MonoBehaviour
 {
-    protected AnimationManager animationManager;
+    public AnimationManager animationManager;
 
     [Header("AI Settings")]
     public string teamTag;
@@ -64,14 +64,12 @@ public abstract class CharacterManager : MonoBehaviour
         {
             animationManager = GetComponentInChildren<AnimationManager>();
         }
-        //fileManager = GetComponent<CharacterStats>();
-        //CharacterStats.currentHP = maxHP;
         
 
-        if (FileManager.GetStats(savePath + this.gameObject.name + "_stats.json").Equals(new CharacterManager.CharacterStats(0, 0, 0, 100, "", Vector2.zero, "")))
+        if (FileManager.GetStats(savePath + this.gameObject.name + "_stats.json").Equals(new CharacterManager.CharacterStats(0, 0, 0, 0, "", Vector2.zero, "")))
         {
             // set up a new save object for the characters stats
-            characterStats = new CharacterStats(50, 0, 0, 100, SceneManager.GetActiveScene().name, Vector2.zero, "Down");
+            characterStats = new CharacterStats(50, 0, 0, 0, SceneManager.GetActiveScene().name, Vector2.zero, "Down");
             FileManager.SaveStats(savePath + this.gameObject.name + "_stats.json", characterStats);
         }
         else

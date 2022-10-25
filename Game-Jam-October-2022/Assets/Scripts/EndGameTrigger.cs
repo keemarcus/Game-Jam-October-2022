@@ -30,6 +30,8 @@ public class EndGameTrigger : MonoBehaviour
         
         if (allGoblinsDead)
         {
+            GameObject.FindGameObjectWithTag("Music").GetComponent<Music>().ChangeSong(FindObjectOfType<PlayerManager>().normalMusic);
+            GameObject.FindGameObjectWithTag("Music").GetComponent<Music>().SetVolume(.5f);
             sceneTransitionManager.targetScene = "WoodsEnd";
         }else
         {

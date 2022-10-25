@@ -11,6 +11,7 @@ public class PlayerManager : CharacterManager
     CameraManager cameraManager;
     SpellUIManager spellUIManager;
     public AudioSource audioSource;
+    public GameObject musicPrefab;
     public AudioClip outOfEnergySound;
     public AudioClip bossMusic;
     public AudioClip normalMusic;
@@ -43,13 +44,20 @@ public class PlayerManager : CharacterManager
         spellUIManager.healthSlider.value = this.characterStats.CurrentHP;
         audioSource = this.gameObject.GetComponent<AudioSource>();
 
+        if(GameObject.FindGameObjectWithTag("Music") == null)
+        {
+            Instantiate(musicPrefab);
+        }
+
         if(SceneManager.GetActiveScene().name == "GoblinVillage")
         {
             GameObject.FindGameObjectWithTag("Music").GetComponent<Music>().ChangeSong(bossMusic);
+            GameObject.FindGameObjectWithTag("Music").GetComponent<Music>().SetVolume(.15f);
         }
         else
         {
             GameObject.FindGameObjectWithTag("Music").GetComponent<Music>().ChangeSong(normalMusic);
+            GameObject.FindGameObjectWithTag("Music").GetComponent<Music>().SetVolume(.5f);
         }
 
         deathTimer = 0f;
@@ -58,6 +66,7 @@ public class PlayerManager : CharacterManager
 
     new public void HandleAttack()
     {
+        if (isInteracting) { return; }
         if (this.characterStats.EnergyLevel < activeSpell.spellScript.energyCost)
         {
             // play out of energy sound effect
@@ -128,16 +137,23 @@ public class PlayerManager : CharacterManager
         if(isDead || wonGame)
         {
             deathTimer += delta;
-            if(deathTimer >= 5f)
+            if(deathTimer >= 3.5f)
             {
                 if (isDead)
                 {
+                    GameObject.FindGameObjectWithTag("Music").GetComponent<Music>().StopMusic();
                     LoseGame();
                 }
                 else
                 {
                     WinGame();
                 }
+            }
+
+            // update the health bar
+            if (spellUIManager.healthSlider.value != this.characterStats.CurrentHP)
+            {
+                spellUIManager.SetHealthAmount(this.characterStats.CurrentHP);
             }
             return;
         }

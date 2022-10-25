@@ -77,6 +77,7 @@ public class EnemyManager : CharacterManager
 
     private void HandleStateMachine()
     {
+        if (isInteracting) { return; }
         if (currentState != null)
         {
             AIState nextState = currentState.Tick(this, this.animationManager);

@@ -39,7 +39,7 @@ public class FileManager : MonoBehaviour
         }
         else
         {
-            return new CharacterManager.CharacterStats(0,0,0,100, "", Vector2.zero, "");
+            return new CharacterManager.CharacterStats(0,0,0,0, "", Vector2.zero, "");
         }
         
     }

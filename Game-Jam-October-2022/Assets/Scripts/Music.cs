@@ -43,4 +43,10 @@ public class Music : MonoBehaviour
         _audioSource.clip = newSong;
         PlayMusic();
     }
+
+    public void SetVolume(float level)
+    {
+        level = Mathf.Clamp(level, 0, 1);
+        _audioSource.volume = level;
+    }
 }

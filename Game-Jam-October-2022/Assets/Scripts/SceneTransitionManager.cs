@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SceneTransitionManager : MonoBehaviour
 {
@@ -11,26 +12,18 @@ public class SceneTransitionManager : MonoBehaviour
     public Vector2 targetPosition;
     public string targetDirection;
 
-    //private AssetBundle myLoadedAssetBundle;
-    //private int targetSceneIndex;
-    //BoxCollider2D collider;
-
-    private void Awake()
-    {
-        //myLoadedAssetBundle = AssetBundle.LoadFromFile("Assets/AssetBundles/scenes");
-        //scene
-    }
-
     public string GetTargetSceneName()
     {
-        //return targetScene.Split('/', '.').GetValue(2).ToString();
         return targetScene;
     }
 
     public void TransitionScene()
     {
+        // start to fade out
+        GameObject.FindGameObjectWithTag("Crossfade").GetComponent<Animator>().SetTrigger("Out");
+
         // save the postion of every enemy 
-        foreach(EnemyManager enemy in FindObjectsOfType<EnemyManager>())
+        foreach (EnemyManager enemy in FindObjectsOfType<EnemyManager>())
         {
             //enemy.SetDirection();
             enemy.UpdateStats(SceneManager.GetActiveScene().name, enemy.transform.position, enemy.characterStats.CharacterDirection);

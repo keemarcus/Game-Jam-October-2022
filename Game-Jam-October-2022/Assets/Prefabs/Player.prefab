@@ -55,6 +55,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd2bde908985d5748bb1f342430ad030, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationManager: {fileID: 0}
   teamTag: Player
   sightVector: {x: 0, y: 0}
   canDoCombo: 0
@@ -74,9 +75,11 @@ MonoBehaviour:
   isInteracting: 0
   isDead: 0
   audioSource: {fileID: 0}
+  musicPrefab: {fileID: 1500243549020146946, guid: 21931c38add752c4990e265e3894afa7, type: 3}
   outOfEnergySound: {fileID: 8300000, guid: 303f2135d52e7d04a90e27923fb55510, type: 3}
   bossMusic: {fileID: 8300000, guid: 51744d28cd3902846b2c3c96d45baaaa, type: 3}
   normalMusic: {fileID: 8300000, guid: 51140ac2f9e43e04e815c45e4b0c762b, type: 3}
+  wonGame: 0
   activeSpell: {fileID: 0}
   activeSpellIndex: 0
   spells:
