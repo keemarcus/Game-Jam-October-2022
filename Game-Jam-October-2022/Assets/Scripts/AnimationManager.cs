@@ -12,7 +12,7 @@ public class AnimationManager : MonoBehaviour
     {
         animator = this.gameObject.GetComponent<Animator>();
         characterManager = GetComponentInParent<CharacterManager>();
-        weaponManager = transform.GetChild(0).GetComponentInChildren<WeaponManager>();
+        //weaponManager = transform.GetChild(0).GetComponentInChildren<WeaponManager>();
     }
 
     public void UpdateAnimator(float delta, float moveAmount, Vector2 moveDirection)

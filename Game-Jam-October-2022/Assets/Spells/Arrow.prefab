@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5365843833618598939
 SpriteRenderer:
@@ -147,8 +147,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 20
+  energyCost: 0
+  UIImage: {fileID: 0}
   missileSpeed: 20
   spellType: Attack
   spellEffectAmount: 10
   spellEffectType: Piercing
   casterTeam: 
+  impactSound: {fileID: 8300000, guid: e9d6dbe4b9c3edb44b8174819dbc618a, type: 3}

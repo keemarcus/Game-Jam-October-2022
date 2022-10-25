@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6671eed92fef234facf73be154bbbc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  energyValue: 7.5
+  energyValue: 15
   isDead: 0
   selectedForAbsorb: 0
 --- !u!1 &8836958643367038745

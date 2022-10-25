@@ -11,6 +11,7 @@ public class MissileSpell : Spell
     public string spellEffectType;
     public string casterTeam;
     Transform casterTransform;
+    public AudioClip impactSound;
 
     public override void Create(Vector2 origin, GameObject caster)
     {
@@ -59,6 +60,12 @@ public class MissileSpell : Spell
             }
         }
 
+        AudioSource audioSource = FindObjectOfType<PlayerManager>().audioSource;
+        if (audioSource != null)
+        {
+            audioSource.clip = impactSound;
+            audioSource.Play();
+        }
         Destroy(this.gameObject);
     }
 

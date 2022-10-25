@@ -23733,6 +23733,7 @@ GameObject:
   - component: {fileID: 902233598963435152}
   - component: {fileID: 902233598963435153}
   - component: {fileID: 902233598963435154}
+  - component: {fileID: 902233598963435156}
   m_Layer: 0
   m_Name: Scene Transition
   m_TagString: Untagged
@@ -23740,6 +23741,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &902233598963435156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 902233598963435155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fd4b414fc5f5a346b8a4f07547b0bee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allGoblinsDead: 0
 --- !u!1001 &3607141545026874696
 PrefabInstance:
   m_ObjectHideFlags: 0

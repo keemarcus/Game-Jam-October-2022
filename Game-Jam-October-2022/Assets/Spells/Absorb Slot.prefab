@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7030682371855380849
 MonoBehaviour:
@@ -47,3 +47,4 @@ MonoBehaviour:
   spellPrefab: {fileID: 7672336740993427383, guid: da4ef4a6a3e9ffe44ae98a9129554680, type: 3}
   spellAnimation: Summon
   spellScript: {fileID: -2694317861312468766, guid: da4ef4a6a3e9ffe44ae98a9129554680, type: 3}
+  castSound: {fileID: 8300000, guid: b57642b30c1f25c47a4a627f40ef3e08, type: 3}

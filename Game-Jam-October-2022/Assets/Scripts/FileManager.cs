@@ -7,15 +7,20 @@ using System.IO;
 [Serializable]
 public class FileManager : MonoBehaviour
 {
-    [Header("File Settings")]
+    //[Header("File Settings")]
     //public string savePath;
 
-    [Header("Character Stats")]
-    public int maxHP;
-    int currentHP;
-    public int hitBonus;
-    public int damageResistance;
+    //[Header("Character Stats")]
+    //public int maxHP;
+    //int currentHP;
+    //public int hitBonus;
+    //public int damageResistance;
 
+    public static void ClearSaveData()
+    {
+        DirectoryInfo dataDir = new DirectoryInfo(Application.persistentDataPath);
+        dataDir.Delete(true);
+    }
     public static void SaveStats(string filePath, object data)
     {
         //Debug.Log(Application.persistentDataPath);

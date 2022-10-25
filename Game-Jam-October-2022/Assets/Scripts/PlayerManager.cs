@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Sprites;
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : CharacterManager
 {
@@ -9,6 +10,13 @@ public class PlayerManager : CharacterManager
     PlayerLocomotion playerLocomotion;
     CameraManager cameraManager;
     SpellUIManager spellUIManager;
+    public AudioSource audioSource;
+    public AudioClip outOfEnergySound;
+    public AudioClip bossMusic;
+    public AudioClip normalMusic;
+
+    public bool wonGame;
+    private float deathTimer;
 
     private int lastHealthIncrement;
 
@@ -32,10 +40,34 @@ public class PlayerManager : CharacterManager
         spellUIManager = FindObjectOfType<SpellUIManager>();
         UpdateSpellUI();
         spellUIManager.healthSlider.maxValue = this.characterStats.MaxHP;
+        spellUIManager.healthSlider.value = this.characterStats.CurrentHP;
+        audioSource = this.gameObject.GetComponent<AudioSource>();
+
+        if(SceneManager.GetActiveScene().name == "GoblinVillage")
+        {
+            GameObject.FindGameObjectWithTag("Music").GetComponent<Music>().ChangeSong(bossMusic);
+        }
+        else
+        {
+            GameObject.FindGameObjectWithTag("Music").GetComponent<Music>().ChangeSong(normalMusic);
+        }
+
+        deathTimer = 0f;
+        wonGame = false;
     }
 
     new public void HandleAttack()
     {
+        if (this.characterStats.EnergyLevel < activeSpell.spellScript.energyCost)
+        {
+            // play out of energy sound effect
+            if (audioSource != null)
+            {
+                audioSource.clip = outOfEnergySound;
+                audioSource.Play();
+            }
+            return;
+        }
         animationManager.HandleCastAnimations(activeSpell.spellAnimation);
     }
 
@@ -43,7 +75,7 @@ public class PlayerManager : CharacterManager
     {
         if (alreadyCast || this.aimDirection == Vector2.zero || this.characterStats.EnergyLevel < activeSpell.spellScript.energyCost) { return; }
         aimDirection.Normalize();
-        activeSpell.Cast(spellOriginOffset.transform.position, this.gameObject);
+        activeSpell.Cast(spellOriginOffset.transform.position, this.gameObject, audioSource);
         alreadyCast = true;
 
         // update player energy level
@@ -92,8 +124,23 @@ public class PlayerManager : CharacterManager
 
     void Update()
     {
-        //if (isInteracting) { return; }
         float delta = Time.deltaTime;
+        if(isDead || wonGame)
+        {
+            deathTimer += delta;
+            if(deathTimer >= 5f)
+            {
+                if (isDead)
+                {
+                    LoseGame();
+                }
+                else
+                {
+                    WinGame();
+                }
+            }
+            return;
+        }
 
         // take player inputs
         inputManager.TickInput(delta);
@@ -101,7 +148,7 @@ public class PlayerManager : CharacterManager
         activeSpell.spellScript.CheckForTarget(spellOriginOffset.transform.position);
 
         // health regen
-        if(this.healthRegenTimer < 50f)
+        if(!this.isDead && this.healthRegenTimer < 50f)
         {
             healthRegenTimer += delta;
             int newHealthIncrement = (int)Mathf.Floor(healthRegenTimer);
@@ -123,7 +170,7 @@ public class PlayerManager : CharacterManager
     private void FixedUpdate()
     {
         //if (isDead) { inputManager.moveAmount = 0; return; }
-        if (isDead || isInteracting) { inputManager.moveAmount = 0; }
+        if (isDead || isInteracting || wonGame) { inputManager.moveAmount = 0; }
         float delta = Time.fixedDeltaTime;
 
         // move the player
@@ -173,5 +220,19 @@ public class PlayerManager : CharacterManager
             UpdateStats(transition.GetTargetSceneName(), transition.targetPosition, transition.targetDirection);
             transition.TransitionScene();
         }
+    }
+
+    public void LoseGame()
+    {
+        // clear all save date and go back to the main menu
+        FileManager.ClearSaveData();
+        SceneManager.LoadSceneAsync("MainMenu", LoadSceneMode.Single);
+    }
+
+    public void WinGame()
+    {
+        // clear all save date and go to the credits
+        FileManager.ClearSaveData();
+        SceneManager.LoadSceneAsync("EndCredits", LoadSceneMode.Single);
     }
 }

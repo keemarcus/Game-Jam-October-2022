@@ -30,7 +30,7 @@ public class SpellUIManager : MonoBehaviour
         newAmount = Mathf.Clamp(newAmount, 0, healthSlider.maxValue);
 
         // set the value of the slider
-        healthSlider.value = Mathf.Lerp(healthSlider.value, newAmount, Time.deltaTime);
+        healthSlider.value = Mathf.Lerp(healthSlider.value, newAmount, Time.deltaTime * 10);
     }
 
     public void SetActiveSpell(int index)

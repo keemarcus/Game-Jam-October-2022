@@ -247,3 +247,4 @@ MonoBehaviour:
   spellEffectAmount: 12
   spellEffectType: Fire
   casterTeam: 
+  impactSound: {fileID: 8300000, guid: c64a867e42ab34c4891b950ea3eb604e, type: 3}

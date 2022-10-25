@@ -47,3 +47,4 @@ MonoBehaviour:
   spellPrefab: {fileID: 5365843833618598942, guid: 8ffa630433a927745a153c812fc757ba, type: 3}
   spellAnimation: Attack
   spellScript: {fileID: 9117185678645453292, guid: 8ffa630433a927745a153c812fc757ba, type: 3}
+  castSound: {fileID: 8300000, guid: 953f5a529e6b49649a996b8986a9f292, type: 3}

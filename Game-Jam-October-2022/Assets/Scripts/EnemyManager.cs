@@ -27,6 +27,9 @@ public class EnemyManager : CharacterManager
     public int meleeDamage;
     public string meleeDamageType;
 
+    AudioSource audioSource;
+    public AudioClip meleeHitSound;
+
 
     // Start is called before the first frame update
     void Start()
@@ -41,18 +44,25 @@ public class EnemyManager : CharacterManager
         playerManager = FindObjectOfType<PlayerManager>();
         shield = this.GetComponentInChildren<Shield>();
         alreadyCast = false;
+
+        audioSource = this.gameObject.GetComponent<AudioSource>();
     }
 
     public void Cast()
     {
         if (spell == null || spellOriginOffset == null || alreadyCast || this.aimDirection == Vector2.zero) { return; }
         aimDirection.Normalize();
-        spell.Cast(spellOriginOffset.transform.position, this.gameObject);
+        spell.Cast(spellOriginOffset.transform.position, this.gameObject, audioSource);
         alreadyCast = true;
     }
 
     public void MeleeAttack(CharacterManager targetHit)
     {
+        if (meleeHitSound != null && audioSource != null)
+        {
+            audioSource.clip = meleeHitSound;
+            audioSource.Play();
+        }
         targetHit.TakeDamage(this.meleeDamage, this.meleeDamageType);
     }
 
